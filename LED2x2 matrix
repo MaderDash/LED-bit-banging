@@ -1,0 +1,27 @@
+int delayTime = 333; //It's better coding style to not have any hard-coded constants like in the previous example
+byte portD_HIGH = B00111110;
+byte portD_LOW =  B00100000;
+byte ZERO      =  B00100000;
+byte ONE       =  B00010000;
+byte TWO       =  B00001000;
+byte THREE     =  B00000100;
+byte FOUR      =  B00000010;
+byte Gnd1      =  B10000000;
+byte Gnd2      =  B01000000;
+bool latch     =  true;
+int array[5]   = {ZERO, ONE, TWO, THREE, FOUR};
+ 
+void setup(){
+     DDRD = DDRD | B11111111;  //Sets up the pins for output
+     DDRB = DDRB | B11111111;  //Sets up the pins for output
+}
+ 
+void loop(){
+for (int i = 0; i < 4; i++){
+    if (latch == true){PORTD = Gnd2;}
+  else{PORTD = Gnd1;}
+    if (i == 3){latch = !latch;}
+    PORTB = array[i];
+    delay(delayTime);
+  }
+}
